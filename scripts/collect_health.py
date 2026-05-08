@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 EU Regulation — Unified Health Collector.
-Prüft alle Datenquellen auf Erreichbarkeit + validiert Seed-Daten.
-Primäre Datenquelle bleiben die Seed-Daten — die Collector prüfen ob sich was geändert hat.
+Checks all data sources for reachability + validates seed data.
+Primary data source remains the seed data — the collector checks if anything has changed.
 """
 import sys, os, json, re, urllib.request, urllib.parse, urllib.error
 from datetime import datetime, timedelta
@@ -22,7 +22,7 @@ REPORT = {
 }
 
 def check_endpoint(name, url, method='GET', data=None, timeout=10):
-    """Prüfe ob ein Endpunkt erreichbar ist."""
+    """Check if an endpoint is reachable."""
     try:
         if method == 'POST' and data:
             req = urllib.request.Request(url, data=data.encode() if isinstance(data, str) else data,
@@ -47,7 +47,7 @@ def check_endpoint(name, url, method='GET', data=None, timeout=10):
         return False, None
 
 def check_deadlines():
-    """Prüfe anstehende und überfällige Deadlines."""
+    """Check upcoming and overdue deadlines."""
     try:
         deadlines = get_pending_deadlines(30, 20)
         REPORT["deadlines"] = [{
@@ -60,46 +60,46 @@ def check_deadlines():
         REPORT["errors"].append(f"Deadlines: {e}")
 
 def check_db():
-    """DB-Statistiken und Validierung."""
+    """DB statistics and validation."""
     try:
         REPORT["db_stats"] = db_stats()
         total = sum(v for k, v in REPORT["db_stats"].items() if not k.startswith('sqlite'))
         if total < 50:
-            REPORT["alerts"].append(f"⚠️ DB nur {total} Einträge — Seed empfohlen")
+            REPORT["alerts"].append(f"⚠️ DB only has {total} entries — consider reseeding")
     except Exception as e:
         REPORT["errors"].append(f"DB: {e}")
 
 def check_updates():
-    """Prüfe ob Seed-Daten veraltet sind (> 14 Tage ohne Update)."""
+    """Check if seed data is stale (> 14 days without update)."""
     stats = db_stats()
     if stats.get('tracking_subscriptions', 0) == 0 and stats.get('eurlex_metadata', 0) == 0:
-        REPORT["alerts"].append("🔴 DB leer — seed_database.py ausführen!")
+        REPORT["alerts"].append("🔴 DB empty — run seed_database.py!")
     elif stats.get('eurlex_metadata', 0) < 20:
-        REPORT["alerts"].append(f"🟡 Nur {stats.get('eurlex_metadata', 0)} EUR-Lex Einträge — Seed empfohlen")
+        REPORT["alerts"].append(f"🟡 Only {stats.get('eurlex_metadata', 0)} EUR-Lex entries — reseed recommended")
 
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--quick', action='store_true', help='Nur DB-Check, keine API-Tests')
+    parser.add_argument('--quick', action='store_true', help='DB check only, skip API tests')
     args = parser.parse_args()
     
     print(f"🩺 EU Regulation Health Check")
     print(f"   {NOW}\n")
     
-    # DB immer prüfen
+    # Always check DB
     check_db()
     check_updates()
     check_deadlines()
     
     if not args.quick:
-        print("🔌 API Endpunkte:")
+        print("🔌 API Endpoints:")
         eps = [
             ("EUR-Lex SPARQL", "https://publications.europa.eu/webapi/rdf/sparql", 'POST',
              urllib.parse.urlencode({'query': "SELECT ?s WHERE { ?s a ?type } LIMIT 1", 'format': 'application/sparql-results+json'})),
             ("EUR-Lex Web", "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689"),
             ("EU Commission HYS", "https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives_en"),
-            ("EuGH CURIA", "https://curia.europa.eu/juris/liste.jsf?language=en&type=JUR&text=pesticide"),
+            ("ECJ CURIA", "https://curia.europa.eu/juris/liste.jsf?language=en&type=JUR&text=pesticide"),
             ("N-Lex", "https://n-lex.europa.eu/n-lex/"),
             ("DE BGBl", "https://www.bgbl.de/xaver/bgbl/start.xav"),
             ("IT Normattiva", "https://www.normattiva.it"),
@@ -131,4 +131,4 @@ if __name__ == '__main__':
     if not REPORT["errors"] and not REPORT["alerts"]:
         print("✅ All systems nominal")
     
-    print(f"\n⚠️ Keine Rechtsberatung. Stand: {NOW[:10]}")
+    print(f"\n⚠️ Not legal advice. Status: {NOW[:10]}")

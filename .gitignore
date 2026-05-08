@@ -6,8 +6,10 @@ dist/
 build/
 
 # DB
+*.db
 *.db-shm
 *.db-wal
+seed.db
 
 # OS
 .DS_Store

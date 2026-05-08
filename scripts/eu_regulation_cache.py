@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 EU Regulation Intelligence — SQLite Cache Module
-Zentrale Datenhaltung für EU-Regulierungs-Frühwarnsystem.
+Central data store for the EU Regulation early-warning system.
 """
 import sqlite3
 import json
@@ -120,7 +120,7 @@ def get_open_consultations(sector=None, days_remaining=30, limit=10):
     cutoff = (datetime.now() + timedelta(days=days_remaining)).strftime('%Y-%m-%d')
     return [r for r in rows if r['deadline'] <= cutoff]
 
-# ── EuGH Rulings ─────────────────────────────────────────────────────
+# ── ECJ Rulings ──────────────────────────────────────────────────────
 
 def save_ruling(case_no, title, applicant, respondent, summary, keywords, decision_date, court, url, sector):
     conn = get_db()
@@ -210,7 +210,7 @@ def update_tracking_last_checked(track_id):
 # ── Reporting ─────────────────────────────────────────────────────────
 
 def get_pending_deadlines(days_ahead=30, limit=20):
-    """Finde alle anstehenden Deadlines in den nächsten days_ahead Tagen."""
+    """Find all pending deadlines within the next days_ahead days."""
     conn = get_db()
     today = date.today()
     from datetime import timedelta

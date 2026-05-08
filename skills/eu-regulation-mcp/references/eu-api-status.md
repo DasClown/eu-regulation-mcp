@@ -1,7 +1,7 @@
-# EU API Status — Detailprotokoll
+# EU API Status — Detailed Protocol
 
-> Stand: 2026-05-07. Getestet aus einer Hetzner VPS (EU-Root-Server, Debian 12).
-> Keine Rechtsberatung.
+> Status: 2026-05-07. Tested from a Hetzner VPS (EU root server, Debian 12).
+> Not legal advice.
 
 ## EUR-Lex API — Vollständiger WAF-Block
 

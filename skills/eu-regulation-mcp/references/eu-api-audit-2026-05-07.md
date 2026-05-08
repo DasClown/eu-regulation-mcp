@@ -1,7 +1,7 @@
 # EU API Audit — 2026-05-07
 
-> Systematischer Endpunkttest aller EU-Datenquellen.
-> Keine Rechtsberatung.
+> Systematic endpoint test of all EU data sources.
+> Not legal advice.
 
 ## Methode
 

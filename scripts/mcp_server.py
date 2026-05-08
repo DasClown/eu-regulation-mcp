@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 EU Regulation Intelligence MCP Server
-Bietet Tools für EU-Regulierungs-Frühwarnung:
-- track_regulation / get_legislative_status / get_open_consultations
-- get_national_implementation / get_relevant_rulings / regulatory_impact_assessment
+Provides EU Regulation early-warning tools:
+|- track_regulation / get_legislative_status / get_open_consultations
+|- get_national_implementation / get_relevant_rulings / regulatory_impact_assessment
 """
 import sys, os, json, asyncio
 from datetime import datetime, date, timedelta
@@ -32,7 +32,7 @@ async def recv_json():
 
 # ── Tool Implementations ─────────────────────────────────────────────
 
-DISCLAIMER = lambda: f"⚠️  Keine Rechtsberatung — automatische Vorabprüfung, kein Ersatz für fachanwaltliche Beratung. Stand: {datetime.now().strftime('%Y-%m-%d')}"
+DISCLAIMER = lambda: f"⚠️  Not legal advice — automated preliminary check, not a substitute for professional legal counsel. As of: {datetime.now().strftime('%Y-%m-%d')}"
 
 NO_DATA_LINKS = {
     'eurlex': "https://eur-lex.europa.eu/search.html?q={keyword}&lang=en&DB_ALL=true",
@@ -45,19 +45,19 @@ NO_DATA_LINKS = {
 async def handle_track_regulation(params):
     """
     track_regulation(keyword, sector, region='EU')
-    Abonniert ein Thema. Liefert aktuellen Stand + nächste Schritte.
+    Subscribes to a topic. Returns current status and next steps.
     """
     keyword = params.get('keyword', '')
     sector = params.get('sector', 'general')
     region = params.get('region', 'EU')
     
     if not keyword:
-        return {"error": "keyword erforderlich", "status": "error"}
+        return {"error": "keyword required", "status": "error"}
     
     # Subscribe tracking
     subscribe_tracking(keyword, sector, region)
     
-    # Sofortige Datensammlung
+    # Immediate data collection
     results = {
         "keyword": keyword,
         "sector": sector,
@@ -70,12 +70,12 @@ async def handle_track_regulation(params):
             "consultations": [],
             "rulings": []
         },
-        "note_eurlex_empty": f"Dazu keine aktuellen Daten im Cache. Prüfe direkt: {NO_DATA_LINKS['eurlex'].format(keyword=keyword)}",
-        "note_procedures_empty": f"Gesetzgebungsverfahren prüfen: {NO_DATA_LINKS['procedures'].format(keyword=keyword)}",
-        "note_consultations_empty": f"Konsultationen: {NO_DATA_LINKS['consultations']}",
-        "note_rulings_empty": f"EuGH-Urteile: {NO_DATA_LINKS['rulings'].format(keyword=keyword)}",
+        "note_eurlex_empty": f"No current data in cache. Check directly: {NO_DATA_LINKS['eurlex'].format(keyword=keyword)}",
+        "note_procedures_empty": f"Check legislative procedures: {NO_DATA_LINKS['procedures'].format(keyword=keyword)}",
+        "note_consultations_empty": f"Consultations: {NO_DATA_LINKS['consultations']}",
+        "note_rulings_empty": f"ECJ rulings: {NO_DATA_LINKS['rulings'].format(keyword=keyword)}",
         "disclaimer": DISCLAIMER(),
-        "next_steps": "Tägliches Update via Cron-Job eingerichtet."
+        "next_steps": "Daily update via cron job established."
     }
     
     # EUR-Lex
@@ -127,7 +127,7 @@ async def handle_track_regulation(params):
 async def handle_get_legislative_status(params):
     """
     get_legislative_status(celex_number, procedure_number)
-    Wo steht ein Gesetz? EP-Lesung? Rat? Trilog?
+    Where does a law stand? EP reading? Council? Trilogue?
     """
     celex = params.get('celex_number', '')
     procedure = params.get('procedure_number', '')
@@ -172,26 +172,26 @@ async def handle_get_legislative_status(params):
     # Timeline construction
     if results["procedures"]:
         stages = {
-            'EP_1st_reading': 'EP erste Lesung',
-            'Council_1st_reading': 'Rat erste Lesung',
-            'Trilogue': 'Trilog',
-            'EP_2nd_reading': 'EP zweite Lesung',
-            'Adopted': 'Angenommen',
-            'Signed': 'Unterzeichnet',
-            'Published': 'Veröffentlicht im ABl.',
-            'In_force': 'In Kraft',
+            'EP_1st_reading': 'EP first reading',
+            'Council_1st_reading': 'Council first reading',
+            'Trilogue': 'Trilogue',
+            'EP_2nd_reading': 'EP second reading',
+            'Adopted': 'Adopted',
+            'Signed': 'Signed',
+            'Published': 'Published in OJ',
+            'In_force': 'In force',
         }
         for p in results["procedures"]:
             stage = p.get('stage', '')
             results["timeline"].append({
                 "stage": stages.get(stage, stage),
-                "deadline": p.get('next_deadline', 'Keine'),
+                "deadline": p.get('next_deadline', 'None'),
                 "description": f"{p.get('title', '')[:100]}..."
             })
     
     if not results["procedures"]:
         results["procedures"].append({
-            "note": "Keine Daten im Cache. Prüfe EUR-Lex direkt: "
+            "note": "No data in cache. Check EUR-Lex directly: "
                     f"https://eur-lex.europa.eu/search.html?DB_ALL=true&type=advanced&"
                     f"lang=en&SUBDOM_INIT=ALL_ALL&text={celex or procedure}"
         })
@@ -202,7 +202,7 @@ async def handle_get_legislative_status(params):
 async def handle_get_open_consultations(params):
     """
     get_open_consultations(sector, days_remaining)
-    Offene Konsultationen der EU-Kommission.
+    Open consultations by the European Commission.
     """
     sector = params.get('sector', '')
     days = params.get('days_remaining', 30)
@@ -210,7 +210,7 @@ async def handle_get_open_consultations(params):
     consults = get_open_consultations(sector=sector, days_remaining=days, limit=20)
     
     results = {
-        "sector": sector or "alle",
+        "sector": sector or "all",
         "days_remaining_filter": days,
         "count": len(consults),
         "consultations": [],
@@ -219,7 +219,7 @@ async def handle_get_open_consultations(params):
     }
     
     for c in consults:
-        score_label = {5: "⚠️ DRINGEND", 4: "🔔 Bald", 3: "📋 Mittel", 2: "ℹ️ Niedrig", 1: "💤 Gering"}.get(c['relevance_score'], '📋')
+        score_label = {5: "⚠️ URGENT", 4: "🔔 Soon", 3: "📋 Medium", 2: "ℹ️ Low", 1: "💤 Minimal"}.get(c['relevance_score'], '📋')
         results["consultations"].append({
             "title": c['title'],
             "sector": c['sector'],
@@ -235,13 +235,13 @@ async def handle_get_open_consultations(params):
 async def handle_get_national_implementation(params):
     """
     get_national_implementation(eu_directive, member_state)
-    Wie wurde EU-Richtlinie in Land X umgesetzt?
+    How has an EU directive been implemented in country X?
     """
     directive = params.get('eu_directive', '')
     ms = params.get('member_state', '')
     
     if not directive:
-        return {"error": "eu_directive erforderlich (CELEX oder Titel-Keyword)", "status": "error"}
+        return {"error": "eu_directive required (CELEX or title keyword)", "status": "error"}
     
     impls = []
     if ms:
@@ -260,11 +260,11 @@ async def handle_get_national_implementation(params):
     }
     
     status_labels = {
-        'adopted': '✅ Umgesetzt',
-        'drafting': '📝 In Arbeit',
-        'not_started': '⏳ Nicht begonnen',
-        'overdue': '⚠️ Überfällig',
-        'unknown': '❓ Unbekannt'
+        'adopted': '✅ Adopted',
+        'drafting': '📝 In progress',
+        'not_started': '⏳ Not started',
+        'overdue': '⚠️ Overdue',
+        'unknown': '❓ Unknown'
     }
     
     for i in impls:
@@ -285,13 +285,13 @@ async def handle_get_national_implementation(params):
 async def handle_get_relevant_rulings(params):
     """
     get_relevant_rulings(keyword, court='ECJ')
-    EuGH-Urteile zu einem Thema.
+    ECJ rulings on a topic.
     """
     keyword = params.get('keyword', '')
     court = params.get('court', 'ECJ')
     
     if not keyword:
-        return {"error": "keyword erforderlich", "status": "error"}
+        return {"error": "keyword required", "status": "error"}
     
     rulings = search_rulings(keyword, limit=10)
     
@@ -315,7 +315,7 @@ async def handle_get_relevant_rulings(params):
             "respondent": r['respondent'],
             "sector": r.get('relevance_sector', 'general'),
             "url": r['url'] or f"https://curia.europa.eu/juris/liste.jsf?num={r['case_number']}",
-            "relevance": "Hoch" if r.get('relevance_sector') != 'general' else "Mittel"
+            "relevance": "High" if r.get('relevance_sector') != 'general' else "Medium"
         })
     
     return results
@@ -324,19 +324,19 @@ async def handle_get_relevant_rulings(params):
 async def handle_regulatory_impact_assessment(params):
     """
     regulatory_impact_assessment(sector, action)
-    Prüft: Ist eine geplante Aktion von neuen/kommenden Regulierungen betroffen?
+    Checks: Is a planned action affected by new/upcoming regulations?
     """
     sector = params.get('sector', '')
     action = params.get('action', '')
     
     if not action:
-        return {"error": "action erforderlich (z.B. 'Glyphosat-Ersatz in DE verkaufen')", "status": "error"}
+        return {"error": "action required (e.g. 'sell glyphosate substitute in DE')", "status": "error"}
     
     results = {
         "assessed_action": action,
         "sector": sector or "general",
         "timestamp": datetime.now().isoformat(),
-        "risk_level": "unbekannt",
+        "risk_level": "unknown",
         "findings": {
             "relevant_regulations": [],
             "pending_legislation": [],
@@ -346,7 +346,7 @@ async def handle_regulatory_impact_assessment(params):
         },
         "recommendations": [],
         "sources": [],
-        "disclaimer": f"⚠️ {DISCLAIMER()} — Automatische Risikovoranzeige. Konsultiere einen Fachanwalt für verbindliche Auskünfte.",
+        "disclaimer": f"⚠️ {DISCLAIMER()} — Automated risk preview. Consult a legal professional for binding advice.",
     }
     
     # Extract keywords from action — intelligent extraction
@@ -360,7 +360,7 @@ async def handle_regulatory_impact_assessment(params):
     # Add individual words from bigrams for better matching
     keywords = list(set(keywords))  # unique
     
-    # 1. Relevante bestehende Regulierungen
+    # 1. Relevant existing regulations
     for kw in keywords[:5]:
         eurlex = search_eurlex(kw, limit=3)
         for r in eurlex:
@@ -371,7 +371,7 @@ async def handle_regulatory_impact_assessment(params):
                     "type": r['legal_type'],
                     "date": r['publication_date'],
                     "url": r['url'],
-                    "relevance": "Hoch" if r['title'] and kw in r['title'].lower() else "Mittel"
+                    "relevance": "High" if r['title'] and kw in r['title'].lower() else "Medium"
                 })
     
     # 2. Pending legislation
@@ -433,15 +433,15 @@ async def handle_regulatory_impact_assessment(params):
         risk_factors += 2
     
     if risk_factors >= 4:
-        results['risk_level'] = '🔴 HOCH — Signifikante regulatorische Aktivität erkannt'
-        results['recommendations'].append("Prüfe die anstehenden Gesetzgebungsverfahren genau — sie könnten dein Geschäftsmodell direkt betreffen.")
-        results['recommendations'].append("Beteilige dich an offenen Konsultationen, um Einfluss auf die Ausgestaltung zu nehmen.")
+        results['risk_level'] = '🔴 HIGH — Significant regulatory activity detected'
+        results['recommendations'].append("Examine the pending legislative procedures closely — they could directly affect your business model.")
+        results['recommendations'].append("Participate in open consultations to influence the design of regulations.")
     elif risk_factors >= 2:
-        results['risk_level'] = '🟡 MITTEL — Regulatorische Bewegung erkennbar'
-        results['recommendations'].append("Behalte die identifizierten Verfahren im Auge. Kein unmittelbarer Handlungsdruck, aber Vorsorge empfohlen.")
+        results['risk_level'] = '🟡 MEDIUM — Regulatory movement detectable'
+        results['recommendations'].append("Keep an eye on the identified procedures. No immediate pressure to act, but precaution is recommended.")
     else:
-        results['risk_level'] = '🟢 NIEDRIG — Keine signifikante regulatorische Aktivität'
-        results['recommendations'].append("Derzeit keine relevanten regulatorischen Änderungen identifiziert. Regelmäßige Prüfung dennoch empfohlen.")
+        results['risk_level'] = '🟢 LOW — No significant regulatory activity'
+        results['recommendations'].append("No relevant regulatory changes identified at this time. Regular monitoring is still recommended.")
     
     # Collect sources
     for reg in results['findings']['relevant_regulations']:
@@ -455,7 +455,7 @@ async def handle_regulatory_impact_assessment(params):
 
 
 async def handle_system_status(params):
-    """System-Status und DB-Statistiken."""
+    """System status and database statistics."""
     stats = db_stats()
     deadlines = get_pending_deadlines(30, 10)
     
@@ -473,8 +473,8 @@ async def handle_system_status(params):
 
 async def handle_alert_check(params):
     """
-    Proaktive Prüfung: Was hat sich geändert?
-    Wird von Cron-Jobs aufgerufen.
+    Proactive check: What has changed?
+    Called by cron jobs.
     """
     results = {
         "timestamp": datetime.now().isoformat(),
@@ -483,7 +483,7 @@ async def handle_alert_check(params):
         "disclaimer": DISCLAIMER()
     }
     
-    # 1. Überfällige nationale Umsetzungen
+    # 1. Overdue national implementations
     conn = get_db()
     cur = conn.execute("""
         SELECT * FROM national_implementation
@@ -499,14 +499,14 @@ async def handle_alert_check(params):
         results["alerts"].append({
             "type": "national_overdue",
             "severity": "high",
-            "message": f"⏰ {o['member_state']}: Richtlinie {o.get('directive_celex', '')} — "
-                       f"Umsetzung überfällig seit {o['transposition_deadline']}",
+            "message": f"⏰ {o['member_state']}: Directive {o.get('directive_celex', '')} — "
+                       f"Implementation overdue since {o['transposition_deadline']}",
             "detail": o['directive_title'][:200] if o['directive_title'] else '',
             "source": o['national_url'] or ''
         })
         results["changes_detected"] = True
     
-    # 2. Anstehende Deadlines (nächste 14 Tage)
+    # 2. Upcoming deadlines (next 14 days)
     for d in get_pending_deadlines(14, 10):
         results["alerts"].append({
             "type": "upcoming_deadline",
@@ -517,14 +517,14 @@ async def handle_alert_check(params):
         })
         results["changes_detected"] = True
     
-    # 3. Dringende Konsultationen
+    # 3. Urgent consultations
     urgent = get_open_consultations(days_remaining=7, limit=5)
     for c in urgent:
         results["alerts"].append({
             "type": "urgent_consultation",
             "severity": "high",
-            "message": f"⚠️ Konsultation endet bald: {c['title'][:150]} — bis {c['deadline']}",
-            "detail": f"Sektor: {c['sector']}",
+            "message": f"⚠️ Consultation ending soon: {c['title'][:150]} — by {c['deadline']}",
+            "detail": f"Sector: {c['sector']}",
             "source": c['url']
         })
         results["changes_detected"] = True
@@ -547,54 +547,54 @@ TOOL_HANDLERS = {
 
 TOOL_METADATA = {
     "track_regulation": {
-        "description": "Abonniert ein Thema (z.B. Glyphosat, Pflanzenschutz) und liefert Stand des Gesetzgebungsverfahrens + nächste Schritte + Deadlines",
+        "description": "Subscribe to a topic (e.g. glyphosate, plant protection) and returns legislative procedure status + next steps + deadlines",
         "parameters": {
-            "keyword": {"type": "string", "description": "Suchbegriff (z.B. Glyphosat, Pflanzenschutz)"},
-            "sector": {"type": "string", "description": "Sektor (agrar, chemie, pharma, umwelt, digital, energie, finanzen)", "default": "general"},
+            "keyword": {"type": "string", "description": "Search term (e.g. glyphosate, plant protection)"},
+            "sector": {"type": "string", "description": "Sector (agrar, chemie, pharma, umwelt, digital, energie, finanzen)", "default": "general"},
             "region": {"type": "string", "description": "Region (EU, DE, FR, IT, ES)", "default": "EU"}
         }
     },
     "get_legislative_status": {
-        "description": "Wo steht ein Gesetz? EP-Lesung? Rat? Trilog? Mit Zeitachse + Prognose",
+        "description": "Where does a law stand? EP reading? Council? Trilogue? With timeline + forecast",
         "parameters": {
-            "celex_number": {"type": "string", "description": "CELEX-Nummer des Rechtsakts"},
-            "procedure_number": {"type": "string", "description": "Verfahrensnummer (z.B. 2023/1234(COD))"}
+            "celex_number": {"type": "string", "description": "CELEX number of the legal act"},
+            "procedure_number": {"type": "string", "description": "Procedure number (e.g. 2023/1234(COD))"}
         }
     },
     "get_open_consultations": {
-        "description": "Offene Konsultationen der EU-Kommission, gefiltert nach Sektor und Dringlichkeit",
+        "description": "Open consultations by the European Commission, filtered by sector and urgency",
         "parameters": {
-            "sector": {"type": "string", "description": "Sektor-Filter (agrar, chemie, pharma, umwelt, digital, energie, finanzen)", "default": ""},
-            "days_remaining": {"type": "number", "description": "Nur Konsultationen, die in X Tagen enden", "default": 30}
+            "sector": {"type": "string", "description": "Sector filter (agrar, chemie, pharma, umwelt, digital, energie, finanzen)", "default": ""},
+            "days_remaining": {"type": "number", "description": "Only consultations ending within X days", "default": 30}
         }
     },
     "get_national_implementation": {
-        "description": "Prüft Umsetzung einer EU-Richtlinie in DE/FR/IT/ES mit Status und Fristen",
+        "description": "Checks implementation of an EU directive in DE/FR/IT/ES with status and deadlines",
         "parameters": {
-            "eu_directive": {"type": "string", "description": "CELEX-Nummer oder Titel-Keyword der EU-Richtlinie"},
-            "member_state": {"type": "string", "description": "Mitgliedstaat (DE, FR, IT, ES)", "default": ""}
+            "eu_directive": {"type": "string", "description": "CELEX number or title keyword of the EU directive"},
+            "member_state": {"type": "string", "description": "Member state (DE, FR, IT, ES)", "default": ""}
         }
     },
     "get_relevant_rulings": {
-        "description": "EuGH-Urteile zu einem Thema mit Tenor und Relevanz für Unternehmen",
+        "description": "ECJ rulings on a topic with summary and relevance for businesses",
         "parameters": {
-            "keyword": {"type": "string", "description": "Suchbegriff (z.B. Glyphosat, Pflanzenschutz)"},
-            "court": {"type": "string", "description": "Gericht (ECJ, General Court)", "default": "ECJ"}
+            "keyword": {"type": "string", "description": "Search term (e.g. glyphosate, plant protection)"},
+            "court": {"type": "string", "description": "Court (ECJ, General Court)", "default": "ECJ"}
         }
     },
     "regulatory_impact_assessment": {
-        "description": "Prüft, ob eine geplante Aktion von neuen/kommenden Regulierungen betroffen ist. Risikobewertung vor dem Invest.",
+        "description": "Checks whether a planned action is affected by new/upcoming regulations. Risk assessment before investment.",
         "parameters": {
-            "sector": {"type": "string", "description": "Sektor (agrar, chemie, pharma, umwelt, digital, energie, finanzen)"},
-            "action": {"type": "string", "description": "Geplante Aktion (z.B. 'Glyphosat-Ersatz in DE verkaufen')"}
+            "sector": {"type": "string", "description": "Sector (agrar, chemie, pharma, umwelt, digital, energie, finanzen)"},
+            "action": {"type": "string", "description": "Planned action (e.g. 'sell glyphosate substitute in DE')"}
         }
     },
     "system_status": {
-        "description": "System-Status und Datenbank-Statistiken",
+        "description": "System status and database statistics",
         "parameters": {}
     },
     "alert_check": {
-        "description": "Proaktive Prüfung auf Änderungen — was ist neu? Was läuft ab?",
+        "description": "Proactive check for changes — what's new? What's expiring?",
         "parameters": {}
     }
 }
@@ -683,7 +683,7 @@ async def handle_request(request):
     return {"jsonrpc": "2.0", "id": req_id, "result": {}}
 
 
-# ── CLI Mode (direkter Aufruf ohne MCP) ──────────────────────────────
+# ── CLI Mode (direct invocation without MCP) ──────────────────────────
 
 async def run_cli():
     """CLI mode for direct usage."""

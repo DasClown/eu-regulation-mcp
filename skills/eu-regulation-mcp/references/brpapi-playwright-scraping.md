@@ -1,6 +1,6 @@
-# Have Your Say — Playwright-basierte brpapi Extraktion
+# Have Your Say — Playwright-based brpapi Extraction
 
-> Stand: 2026-05-07 | Getestet und funktionsfähig.
+> Status: 2026-05-07 | Tested and functional.
 
 ## Hintergrund
 
