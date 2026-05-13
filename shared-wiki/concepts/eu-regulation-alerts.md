@@ -4,6 +4,27 @@
 > Append-only Log. Neueste Einträge oben.
 > DISCLAIMER: Keine Rechtsberatung.
 
+## 2026-05-13 19:53 UTC — Massen-Tracking eingerichtet + Vollständiger Status
+
+### 🔄 Aktion
+- **25 neue Trackings** aktiviert (vorher nur REACH)
+- Jetzt **26 aktive Trackings** in 6 Sektoren
+
+### 📊 Überblick
+- 🌾 **Agriculture** — SUR, NGT, Glyphosate, Plant Protection, Pesticides
+- 🧪 **Chemicals** — REACH, PFAS, CLP
+- 💊 **Pharma** — Pharmaceutical Package, EHDS, MDR, Critical Medicines
+- 🤖 **Digital** — AI Act, NIS-2, Data Act, Cybersecurity
+- 🌍 **Environment** — CSRD, EUDR, ESPR, Soil, IED, Battery, CBAM, Nature Restoration, Taxonomy
+- 🏢 **Corporate** — CSDDD
+
+### 🔴 Hohe Priorität
+- **8 überfällige Umsetzungen:** CSRD (IT/ES, 676d), NIS-2 (IT/ES, 573d), Battery Regulation (DE/FR/IT/ES, 268d)
+- **4 urgente Konsultationen:** Criminal justice (14.5.), Heavy-duty vehicles (15.5.), Cardiovascular diseases (19.5.), Market risks (19.5.)
+- **Aktive Trilog-Verhandlungen:** SUR, NGT
+
+⚠️ Keine Rechtsberatung — automatische Vorschau. Stand: 2026-05-13
+
 ## 2026-05-07 22:01 — Stündliche Konsultationsprüfung — 4 abgelaufen, 1 neu
 
 - **Status:** 4 heute endende Initiativen (14794, 15353, 15594, 17432) um Mitternacht CEST abgelaufen. **1 neue** Initiative hinzugekommen: Heavy-duty vehicles (14357).
@@ -17,26 +38,22 @@
 
 ### 🔴 HOCH — <7 Tage ⚠️
 
-| # | Initiative | Sektor | Deadline | Link |
-|---|-----------|--------|----------|------|
-| 1 | **Animal by-products in EU fertilising products** | 🌾 GROW | **2026-05-11 (3d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16132_en) |
-| 2 | **EU Cybersecurity Act — Revision** | 🔐 CNECT | **2026-05-12 (4d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14578_en) |
-| 3 | **EHDS – dataset descriptions** | 💊 SANTE | **2026-05-12 (4d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15673_en) |
-| 4 | **ICT usage and e-commerce in enterprises 2026** | 🔐 ESTAT | **2026-05-12 (4d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14182_en) |
-| 5 | **ICT usage in households 2027 variables** | 🔐 ESTAT | **2026-05-12 (4d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14586_en) |
-| 6 | **ICT usage in households 2027 technical formats** | 🔐 ESTAT | **2026-05-12 (4d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14585_en) |
-| 7 | **Criminal Justice Cross-check Mechanism** | ⚖️ JUST | **2026-05-14 (6d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/17832_en) |
-| 8 | **Heavy-duty vehicles fuel consumption & mass — data collection** | 🔐 MOVE | **2026-05-15 (7d) 🆕** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14357_en) |
+- **1.** Animal by-products in EU fertilising products — 🌾 GROW — **2026-05-11 (3d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16132_en)
+- **2.** EU Cybersecurity Act — Revision — 🔐 CNECT — **2026-05-12 (4d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14578_en)
+- **3.** EHDS – dataset descriptions — 💊 SANTE — **2026-05-12 (4d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15673_en)
+- **4.** ICT usage and e-commerce in enterprises 2026 — 🔐 ESTAT — **2026-05-12 (4d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14182_en)
+- **5.** ICT usage in households 2027 variables — 🔐 ESTAT — **2026-05-12 (4d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14586_en)
+- **6.** ICT usage in households 2027 technical formats — 🔐 ESTAT — **2026-05-12 (4d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14585_en)
+- **7.** Criminal Justice Cross-check Mechanism — ⚖️ JUST — **2026-05-14 (6d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/17832_en)
+- **8.** Heavy-duty vehicles fuel consumption & mass — data collection — 🔐 MOVE — **2026-05-15 (7d) 🆕** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14357_en)
 
 ### 🟡 Weitere offene Konsultationen (>7 Tage)
 
-| # | Initiative | Sektor | Deadline | Link |
-|---|-----------|--------|----------|------|
-| 9 | **Digital Product Passport Registry (DPP)** | 🔗 GROW | **2026-05-27 (20d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16052_en) |
-| 10 | **Deforestation – Amendments / simplifications to Annex I** | 🌍 ENV | **2026-06-01 (25d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/18053_en) |
-| 11 | **Amendment of promotion of agricultural products** | 🌾 AGRI | **2026-06-03 (27d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15292_en) |
-| 12 | **Revised European sustainability reporting standards** | 💰 FISMA | **2026-06-03 (27d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16775_en) |
-| 13 | **28th regime – single rules for innovative companies** | ⚖️ JUST | **2026-06-25 (49d)** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14674_en) |
+- **9.** Digital Product Passport Registry (DPP) — 🔗 GROW — **2026-05-27 (20d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16052_en)
+- **10.** Deforestation – Amendments / simplifications to Annex I — 🌍 ENV — **2026-06-01 (25d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/18053_en)
+- **11.** Amendment of promotion of agricultural products — 🌾 AGRI — **2026-06-03 (27d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15292_en)
+- **12.** Revised European sustainability reporting standards — 💰 FISMA — **2026-06-03 (27d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16775_en)
+- **13.** 28th regime – single rules for innovative companies — ⚖️ JUST — **2026-06-25 (49d)** — [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14674_en)
 
 ### 🌾 Für crop-mcp relevant
 - **Animal by-products in EU fertilising products** (16132) — **3d** — Düngemittelzusammensetzung, betrifft Agrarabfallverwertung
@@ -105,34 +122,28 @@
 
 ### 🔴 HOCH — Ends Today (2026-05-07) ⚠️
 
-| # | Initiative | Sektor | DG | Deadline | Link |
-|---|-----------|--------|----|----------|------|
-| 1 | **Simplification of administrative burdens in environmental legislation** | 🌍 Environment | ENV | **HEUTE** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14794_en) |
-| 2 | **EHDS – identification management** | 💊 Public Health | SANTE | **HEUTE** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15353_en) |
-| 3 | **EHDS – MyHealth@EU requirements** | 💊 Public Health | SANTE | **HEUTE** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15594_en) |
-| 4 | **Ukraine Facility – mid-term evaluation** | 🌍 International | NEAR | **HEUTE** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/17432_en) |
+- **1.** Simplification of administrative burdens in environmental legislation — 🌍 Environment | ENV | **HEUTE** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14794_en)
+- **2.** EHDS – identification management — 💊 Public Health | SANTE | **HEUTE** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15353_en)
+- **3.** EHDS – MyHealth@EU requirements — 💊 Public Health | SANTE | **HEUTE** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15594_en)
+- **4.** Ukraine Facility – mid-term evaluation — 🌍 International | NEAR | **HEUTE** | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/17432_en)
 
 ### 🟠 HOCH — Closing in <7 Tagen
 
-| # | Initiative | Sektor | DG | Deadline | Link |
-|---|-----------|--------|----|----------|------|
-| 5 | **Products derived from animal by-products as component materials in EU fertilising products** | 🌾 Single Market | GROW | **2026-05-11** (4d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16132_en) |
-| 6 | **EU Cybersecurity Act — Revision** | 🔐 Digital | CNECT | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14578_en) |
-| 7 | **EHDS – dataset descriptions** | 💊 Public Health | SANTE | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15673_en) |
-| 8 | **ICT usage and e-commerce in enterprises 2026 specifications** | 🔐 Digital | ESTAT | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14182_en) |
-| 9 | **ICT usage in households 2027 variables** | 🔐 Digital | ESTAT | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14586_en) |
-| 10 | **ICT usage in households 2027 technical formats** | 🔐 Digital | ESTAT | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14585_en) |
-| 11 | **Criminal Justice Cross-check Mechanism** | ⚖️ Justice | JUST | **2026-05-14** (7d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/17832_en) |
+- **5.** Products derived from animal by-products as component materials in EU fertilising products — 🌾 Single Market | GROW | **2026-05-11** (4d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16132_en)
+- **6.** EU Cybersecurity Act — Revision — 🔐 Digital | CNECT | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14578_en)
+- **7.** EHDS – dataset descriptions — 💊 Public Health | SANTE | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15673_en)
+- **8.** ICT usage and e-commerce in enterprises 2026 specifications — 🔐 Digital | ESTAT | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14182_en)
+- **9.** ICT usage in households 2027 variables — 🔐 Digital | ESTAT | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14586_en)
+- **10.** ICT usage in households 2027 technical formats — 🔐 Digital | ESTAT | **2026-05-12** (5d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14585_en)
+- **11.** Criminal Justice Cross-check Mechanism — ⚖️ Justice | JUST | **2026-05-14** (7d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/17832_en)
 
 ### 🟡 Weitere offene Konsultationen (>7 Tage)
 
-| # | Initiative | Sektor | DG | Deadline | Link |
-|---|-----------|--------|----|----------|------|
-| 12 | **Digital Product Passport Registry (DPP)** | 🔗 Single Market | GROW | **2026-05-27** (20d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16052_en) |
-| 13 | **Deforestation – Amendments, simplifications, technical fixes to Annex I** | 🌍 Environment | ENV | **2026-06-01** (25d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/18053_en) |
-| 14 | **Amendment of promotion of agricultural products – administrative rules** | 🌾 Agriculture | AGRI | **2026-06-03** (27d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15292_en) |
-| 15 | **Revised European sustainability reporting standards** | 💰 Banking | FISMA | **2026-06-03** (27d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16775_en) |
-| 16 | **28th regime – single harmonized rules for innovative companies** | ⚖️ Justice | JUST | **2026-06-25** (49d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14674_en) |
+- **12.** Digital Product Passport Registry (DPP) — 🔗 Single Market | GROW | **2026-05-27** (20d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16052_en)
+- **13.** Deforestation – Amendments, simplifications, technical fixes to Annex I — 🌍 Environment | ENV | **2026-06-01** (25d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/18053_en)
+- **14.** Amendment of promotion of agricultural products – administrative rules — 🌾 Agriculture | AGRI | **2026-06-03** (27d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/15292_en)
+- **15.** Revised European sustainability reporting standards — 💰 Banking | FISMA | **2026-06-03** (27d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16775_en)
+- **16.** 28th regime – single harmonized rules for innovative companies — ⚖️ Justice | JUST | **2026-06-25** (49d) | [Portal](https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14674_en)
 
 ### 🌾 Für crop-mcp relevant
 - **Products derived from animal by-products in EU fertilising products** (ID 16132) — 4 Tage — betrifft Düngemittelzusammensetzung aus tierischen Nebenprodukten
